@@ -4,11 +4,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  <app-weather-card></app-weather-card>
-  <app-weather-card></app-weather-card>
-  <app-weather-card></app-weather-card>
-  <app-weather-card></app-weather-card>
-  <app-weather-card></app-weather-card>
-  <app-weather-card></app-weather-card>
-  <app-weather-card></app-weather-card>
+  <app-weather-card
+    *ngFor="let city of citiesInfo"
+    [city]="city"
+  ></app-weather-card>
 </ion-content>

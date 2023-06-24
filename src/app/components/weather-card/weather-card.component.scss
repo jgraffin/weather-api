@@ -1,0 +1,20 @@
+ion-card-header {
+  &.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    ion-icon {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+ion-card-content {
+  &.card-content {
+    h3 {
+      font-size: 1.5rem
+    }
+  }
+}
