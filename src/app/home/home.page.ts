@@ -9,13 +9,9 @@ import { tap, switchMap, map, catchError } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  cities: string[] = [
-    'Curitiba',
-    'London',
-    'Sorocaba',
-    'Amsterdã'
-  ]
-  citiesInfo?: any = []
+  cities: string[] = ['Curitiba', 'Londres', 'Sorocaba', 'Amsterdã'];
+  hasAvailableCities = true;
+  citiesInfo?: any = [];
 
   constructor(private weatherService: WeatherService) {}
 
@@ -25,8 +21,27 @@ export class HomePage implements OnInit {
         let value = [...this.citiesInfo, item];
         this.citiesInfo = value;
         console.log(value);
-      })
-    })
+      });
+    });
+
+
+  }
+
+  onRemoveCity(selected: IWeather) {
+    const { name } = selected.location;
+
+    let remove = this.citiesInfo.filter(
+      (item: IWeather) => !item.location.name.includes(name)
+    );
+
+    this.citiesInfo = remove;
+
+    if (this.citiesInfo.length === 0) {
+      this.hasAvailableCities = !this.hasAvailableCities;
+    }
+  }
+
+  onRefreshPage() {
 
   }
 }

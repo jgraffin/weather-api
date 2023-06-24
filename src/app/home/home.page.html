@@ -1,11 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>Weather Api</ion-title>
+<ion-header [translucent]="true" class="ion-padding-bottom">
+  <ion-toolbar color="rabobank-blue">
+    <ion-title class="ion-text-center">Weather Api</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" *ngIf="hasAvailableCities; else noCitiesAvailable">
   <app-weather-card
     *ngFor="let city of citiesInfo"
     [city]="city"
+    (onRemoveCity)="onRemoveCity(city)"
   ></app-weather-card>
 </ion-content>
+<ng-template #noCitiesAvailable>
+  <ion-content class="ion-text-center ion-padding-top">
+    <p>Nenhuma cidade disponível</p>
+    <ion-button class="rabobank-light-blue" (click)="onRefreshPage()">Atualizar</ion-button>
+  </ion-content>
+</ng-template>
+
