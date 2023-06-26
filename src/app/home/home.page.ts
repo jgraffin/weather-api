@@ -1,17 +1,9 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-  forwardRef,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IWeather } from '../interfaces/iweather.interface';
 import { WeatherService } from '../services/weather.service';
-import { IonModal, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ModalComponent } from '../components/modal/modal.component';
-import { WeatherCardComponent } from '../components/weather-card/weather-card.component';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -21,11 +13,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class HomePage implements OnInit {
   cities: string[] = ['Curitiba', 'Sorocaba', 'Amsterdã', 'Salvador'];
   citiesInfo: any = [];
-  cityName = '';
   errorMessage = '';
-  wrongCityName = false;
-  hasAvailableCities = true;
   errorOnSubmitCity = '';
+  hasAvailableCities = true;
 
   constructor(
     private weatherService: WeatherService,
@@ -38,6 +28,8 @@ export class HomePage implements OnInit {
   }
 
   onLoadData() {
+
+    // get all data based on initial state `citiesInfo` array
     this.cities.map((city) =>
       this.weatherService
         .getCities(city)
@@ -45,15 +37,18 @@ export class HomePage implements OnInit {
     );
   }
 
-  onRemoveCity(selected: IWeather) {
-    const { name } = selected.location;
+  onRemoveCity(city: IWeather) {
 
-    let selectedCity = this.citiesInfo.filter(
+    // get selected city to be deleted from `citiesInfo` array
+    const { name } = city.location;
+
+    const selected = this.citiesInfo.filter(
       (item: IWeather) => !item.location.name.includes(name)
     );
 
-    this.citiesInfo = selectedCity;
+    this.citiesInfo = selected;
 
+    // if `citiesInfo` === 0 then show message and hide button at the bottom
     if (this.citiesInfo.length === 0) {
       this.hasAvailableCities = !this.hasAvailableCities;
     }
@@ -62,14 +57,20 @@ export class HomePage implements OnInit {
   }
 
   onRefreshPage() {
+
+    // used when there's no option to refresh the interface in order to get data
     window.location.reload();
   }
 
   onLogout() {
+
+    // just a trick to logout user
     this.router.navigate(['/login']);
   }
 
   async openModal() {
+
+    // to add a new city to the list, by using modalController api
     const modal = await this.modalCtrl.create({
       component: ModalComponent,
     });

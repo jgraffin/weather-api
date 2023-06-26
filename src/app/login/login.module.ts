@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPageRoutingModule } from './login-routing.module';
-import { FormLoginModule } from '../components/form-login/form-login.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginPage } from './login.page';
 
@@ -15,7 +14,6 @@ import { LoginPage } from './login.page';
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    FormLoginModule,
     ReactiveFormsModule
   ],
   declarations: [LoginPage]
