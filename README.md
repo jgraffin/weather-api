@@ -9,6 +9,13 @@ Acesse [WeatherApi](https://www.weatherapi.com/) para obter.
 
 No projeto, basta acessar: `src/app/services/enum.ts` e colar a sua.
 
+Credenciais mock
+
+```bash
+  email = 'user@user.com',
+  password = 'user1234'
+```
+
 
 ## Rodar localmente
 

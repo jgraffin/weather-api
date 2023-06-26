@@ -47,9 +47,10 @@ export class HomePage implements OnInit {
     this.citiesInfo = selected;
 
     // if `citiesInfo` === 0 then show message and hide button at the bottom
-    if (this.citiesInfo.length === 0)
-      this.hasAvailableCities = !this.hasAvailableCities;
-    else this.hasAvailableCities = !!this.hasAvailableCities;
+    this.hasAvailableCities =
+      this.citiesInfo.length === 0
+        ? !this.hasAvailableCities
+        : !!this.hasAvailableCities;
   }
 
   onRefreshPage() {
