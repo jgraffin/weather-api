@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IWeather } from '../interfaces/iweather.interface';
 import { WeatherService } from '../services/weather.service';
-import { tap, switchMap, map, catchError } from 'rxjs';
+import { IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-home',
@@ -9,39 +10,72 @@ import { tap, switchMap, map, catchError } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  cities: string[] = ['Curitiba', 'Londres', 'Sorocaba', 'Amsterdã'];
+  @ViewChild(IonModal) modal?: IonModal;
+
+  cities: string[] = ['Curitiba', 'Sorocaba', 'Amsterdam', 'Sergipe'];
+  citiesInfo: any = [];
+  cityName = '';
+  cityAlreadyExists = false;
   hasAvailableCities = true;
-  citiesInfo?: any = [];
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {
+    this.onLoadData();
+  }
+
+  onLoadData() {
     this.cities.forEach((city) => {
       this.weatherService.getCities(city).subscribe((item) => {
         let value = [...this.citiesInfo, item];
         this.citiesInfo = value;
-        console.log(value);
+        console.log('onLoadData()', value);
       });
     });
+  }
 
+  onAddCity() {
+    let city = this.cityName;
 
+    if (!city) {
+      return;
+    }
+
+    this.weatherService.getCities(city).subscribe((item) => {
+      let value = [...this.citiesInfo, item];
+      this.citiesInfo = value;
+    });
+
+    this.modal?.dismiss('confirm');
   }
 
   onRemoveCity(selected: IWeather) {
     const { name } = selected.location;
 
-    let remove = this.citiesInfo.filter(
+    let selectedCity = this.citiesInfo.filter(
       (item: IWeather) => !item.location.name.includes(name)
     );
 
-    this.citiesInfo = remove;
+    this.citiesInfo = selectedCity;
+    console.log(this.citiesInfo);
 
     if (this.citiesInfo.length === 0) {
       this.hasAvailableCities = !this.hasAvailableCities;
     }
+
+    this.hasAvailableCities = !!this.hasAvailableCities;
   }
 
   onRefreshPage() {
+    window.location.reload();
+  }
 
+  onCancel() {
+    this.modal?.dismiss(null, 'cancel');
+  }
+
+  onWillDismiss() {
+    this.cityName = '';
+    this.onAddCity();
   }
 }

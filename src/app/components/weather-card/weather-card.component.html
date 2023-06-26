@@ -1,8 +1,8 @@
-<ion-card>
-  <ion-card-header class="card-header">
+<ion-card class="ion-margin-bottom">
+  <ion-card-header class="ion-header">
     <ion-card-title>
       <ion-text color="rabobank-light-blue">
-        <h3>{{ city?.location?.name }}</h3>
+        <h2>{{ city?.location?.name }}</h2>
       </ion-text>
     </ion-card-title>
     <ion-text color="rabobank-blue" (click)="handleClick()">
@@ -10,8 +10,8 @@
     </ion-text>
   </ion-card-header>
 
-  <ion-card-content class="card-content">
-    <ion-grid>
+  <ion-card-content class="ion-content">
+    <ion-grid class="ion-no-padding">
       <ion-row>
         <ion-col>
           <p>
@@ -24,32 +24,35 @@
           <p>
             <ion-text color="rabobank-dark-grey">
               <strong>Precip:</strong>
-              {{ city?.current?.precip_mm }}
+              {{ city?.current?.precip_mm }} cm
             </ion-text>
           </p>
 
           <p>
             <ion-text color="rabobank-dark-grey">
               <strong>Pressão:</strong>
-              {{ city?.current?.pressure_mb }}
+              {{ city?.current?.pressure_mb }} cm
             </ion-text>
           </p>
         </ion-col>
-        <ion-col>
+
+        <ion-col class="ion-no-padding">
           <ion-text color="rabobank-orange">
             <h3>{{ city?.current?.temp_c }} ºC</h3>
           </ion-text>
 
-          <img
-            src="https:{{ city?.current?.condition?.icon }}"
-            alt="{{ city?.current?.condition?.text }}"
-          />
+          <div class="card-condition">
+            <img
+              src="https:{{ city?.current?.condition?.icon }}"
+              alt="{{ city?.current?.condition?.text }}"
+            />
 
-          <p>
-            <ion-text color="rabobank-dark-grey">
-              {{ city?.current?.condition?.text }}
-            </ion-text>
-          </p>
+            <p>
+              <ion-text color="rabobank-dark-grey">
+                {{ city?.current?.condition?.text }}
+              </ion-text>
+            </p>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -1,20 +1,30 @@
-ion-card-header {
-  &.card-header {
+ion-card {
+  h3 {
+    font-weight: 700;
+    font-size: 2rem;
+    text-align: right;
+  }
+
+  ion-card-header {
+    padding-top: 0;
+
+    h2 {
+      font-style: italic;
+      font-weight: 400;
+    }
+  }
+
+  ion-card-content {
+    padding-bottom: 0;
+  }
+
+  .card-condition {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-direction: row;
 
-    ion-icon {
-      font-size: 1.6rem;
-    }
-  }
-}
-
-ion-card-content {
-  &.card-content {
-    h3 {
-      font-size: 1.5rem
+    p {
+      text-align: right;
     }
   }
 }
