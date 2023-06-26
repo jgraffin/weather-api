@@ -1,4 +1,4 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { IWeather } from 'src/app/interfaces/iweather.interface';
 
 @Component({
@@ -6,7 +6,7 @@ import { IWeather } from 'src/app/interfaces/iweather.interface';
   templateUrl: './weather-card.component.html',
   styleUrls: ['./weather-card.component.scss'],
 })
-export class WeatherCardComponent  implements OnInit {
+export class WeatherCardComponent {
   @Input() city?: IWeather;
   @Output() onRemoveCity: EventEmitter<EventListener> = new EventEmitter();
 
