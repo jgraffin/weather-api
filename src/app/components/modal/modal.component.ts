@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -7,12 +6,10 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
   cityName = '';
 
   constructor(private modalCtrl: ModalController) {}
-
-  ngOnInit() {}
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');

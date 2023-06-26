@@ -28,7 +28,6 @@ export class HomePage implements OnInit {
   }
 
   onLoadData() {
-
     // get all data based on initial state `citiesInfo` array
     this.cities.map((city) =>
       this.weatherService
@@ -38,7 +37,6 @@ export class HomePage implements OnInit {
   }
 
   onRemoveCity(city: IWeather) {
-
     // get selected city to be deleted from `citiesInfo` array
     const { name } = city.location;
 
@@ -49,27 +47,22 @@ export class HomePage implements OnInit {
     this.citiesInfo = selected;
 
     // if `citiesInfo` === 0 then show message and hide button at the bottom
-    if (this.citiesInfo.length === 0) {
+    if (this.citiesInfo.length === 0)
       this.hasAvailableCities = !this.hasAvailableCities;
-    }
-
-    this.hasAvailableCities = !!this.hasAvailableCities;
+    else this.hasAvailableCities = !!this.hasAvailableCities;
   }
 
   onRefreshPage() {
-
     // used when there's no option to refresh the interface in order to get data
     window.location.reload();
   }
 
   onLogout() {
-
     // just a trick to logout user
     this.router.navigate(['/login']);
   }
 
   async openModal() {
-
     // to add a new city to the list, by using modalController api
     const modal = await this.modalCtrl.create({
       component: ModalComponent,
@@ -91,7 +84,7 @@ export class HomePage implements OnInit {
             this.errorOnSubmitCity = '';
           },
           error: (err) => {
-            console.log(err);
+            console.error(err);
             this.errorOnSubmitCity = 'Cidade inválida';
           },
         });
