@@ -1,0 +1,31 @@
+<div class="modal-container ion-padding">
+  <ion-header class="ion-header ion-no-border">
+    <ion-card-title>
+      <ion-text color="rabobank-light-blue">
+        <h3>Adicionar cidade</h3>
+      </ion-text>
+    </ion-card-title>
+    <ion-text color="rabobank-blue">
+      <ion-icon name="close-sharp" (click)="cancel()"></ion-icon>
+    </ion-text>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-input
+      type="text"
+      placeholder="Digite o nome da cidade..."
+      [(ngModel)]="cityName"
+      ngDefaultControl
+      class="ion-padding"
+    ></ion-input>
+    <ion-button
+      color="rabobank-orange"
+      (click)="onSubmit()"
+      [strong]="true"
+      expand="block"
+      class="ion-text-capitalize modal-confirm"
+    >
+      Confirmar
+    </ion-button>
+  </ion-content>
+</div>
+

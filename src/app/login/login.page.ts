@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
         loginMock.email === this.loginForm.value.email &&
         loginMock.password === this.loginForm.value.password
       ) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       } else {
         this.errorCredentials = true;
       }

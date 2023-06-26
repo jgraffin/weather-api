@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { WeatherCardModule } from '../components/weather-card/weather-card.module';
+import { ModalModule } from '../components/modal/modal.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { WeatherCardModule } from '../components/weather-card/weather-card.modul
     IonicModule,
     HomePageRoutingModule,
     WeatherCardModule,
+    ModalModule,
   ],
   providers: [],
   declarations: [HomePage]

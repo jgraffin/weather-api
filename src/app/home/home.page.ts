@@ -1,10 +1,17 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+  forwardRef,
+} from '@angular/core';
 import { IWeather } from '../interfaces/iweather.interface';
 import { WeatherService } from '../services/weather.service';
-import { IonModal } from '@ionic/angular';
-import { catchError } from 'rxjs';
-import { EMPTY } from 'rxjs/internal/observable/empty'
+import { IonModal, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ModalComponent } from '../components/modal/modal.component';
+import { WeatherCardComponent } from '../components/weather-card/weather-card.component';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -12,58 +19,30 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  @ViewChild(IonModal) modal?: IonModal;
-
   cities: string[] = ['Curitiba', 'Sorocaba', 'Amsterdã', 'Salvador'];
   citiesInfo: any = [];
   cityName = '';
+  errorMessage = '';
   wrongCityName = false;
   hasAvailableCities = true;
+  errorOnSubmitCity = '';
 
-  constructor(private weatherService: WeatherService, private router: Router) {}
+  constructor(
+    private weatherService: WeatherService,
+    private router: Router,
+    public modalCtrl: ModalController
+  ) {}
 
   ngOnInit(): void {
     this.onLoadData();
   }
 
   onLoadData() {
-    this.cities.forEach((city) => {
-      this.weatherService.getCities(city).subscribe((item) => {
-        let value = [...this.citiesInfo, item];
-        this.citiesInfo = value;
-        console.log('onLoadData()', value);
-      });
-    });
-  }
-
-  onAddCity() {
-    let city = this.cityName;
-
-    if (!city) {
-      return;
-    }
-
-    this.weatherService
-      .getCities(city)
-      .pipe(
-        catchError((err) => {
-          if (err.status === 400) {
-            console.log('nome de cidade nao existe')
-            this.wrongCityName = true;
-          }
-
-          return EMPTY;
-        })
-      )
-      .subscribe({
-        next: (res) => {
-            let value = [...this.citiesInfo, res];
-            this.citiesInfo = value;
-        },
-        error: (err) => console.log(err)
-      });
-
-    this.modal?.dismiss('confirm');
+    this.cities.map((city) =>
+      this.weatherService
+        .getCities(city)
+        .subscribe((item) => (this.citiesInfo = [...this.citiesInfo, item]))
+    );
   }
 
   onRemoveCity(selected: IWeather) {
@@ -86,16 +65,38 @@ export class HomePage implements OnInit {
     window.location.reload();
   }
 
-  onCancel() {
-    this.modal?.dismiss(null, 'cancel');
-  }
-
-  onWillDismiss() {
-    this.cityName = '';
-    this.onAddCity();
-  }
-
   onLogout() {
     this.router.navigate(['/login']);
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalComponent,
+    });
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      const value = this.citiesInfo.some(
+        (item: IWeather) =>
+          item.location.name.toLowerCase() === data.toLowerCase()
+      );
+
+      if (!value) {
+        this.weatherService.getCities(data).subscribe({
+          next: (res) => {
+            this.citiesInfo = [...this.citiesInfo, res];
+            this.errorOnSubmitCity = '';
+          },
+          error: (err) => {
+            console.log(err);
+            this.errorOnSubmitCity = 'Cidade inválida';
+          },
+        });
+      } else {
+        this.errorOnSubmitCity = `${data} já existe na lista. Tente outra por favor.`;
+      }
+    }
   }
 }
