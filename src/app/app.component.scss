@@ -28,5 +28,25 @@
 
   ion-content {
     --background: transparent;
+
+    &.ios {
+      --padding-start: 0;
+      --padding-end: 0;
+      --padding-bottom: 0;
+    }
+  }
+
+  ion-card-title {
+    font-style: italic;
   }
 }
+
+.modal-confirm, .add-new {
+  font-size: 1.4rem;
+}
+
+.modal-confirm.ios, .add-new.ios {
+  font-size: 1.1rem;
+}
+
+

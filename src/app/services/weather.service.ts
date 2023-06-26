@@ -8,7 +8,6 @@ import { IWeather } from '../interfaces/iweather.interface';
   providedIn: 'root',
 })
 export class WeatherService {
-  private baseApiUrl = SERVER_URL;
   private apiUrl = 'https://api.weatherapi.com/v1/current.json?key=5c8052703ee7482183d124753232406&lang=pt'
 
   constructor(private http: HttpClient) {}

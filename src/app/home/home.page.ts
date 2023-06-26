@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IWeather } from '../interfaces/iweather.interface';
 import { WeatherService } from '../services/weather.service';
 import { IonModal } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core/components';
+import { catchError } from 'rxjs';
+import { EMPTY } from 'rxjs/internal/observable/empty'
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomePage implements OnInit {
   cities: string[] = ['Curitiba', 'Sorocaba', 'Amsterdam', 'Sergipe'];
   citiesInfo: any = [];
   cityName = '';
-  cityAlreadyExists = false;
+  wrongCityName = false;
   hasAvailableCities = true;
 
   constructor(private weatherService: WeatherService) {}
@@ -41,10 +42,27 @@ export class HomePage implements OnInit {
       return;
     }
 
-    this.weatherService.getCities(city).subscribe((item) => {
-      let value = [...this.citiesInfo, item];
-      this.citiesInfo = value;
-    });
+    console.log('dasd aquiiii');
+
+    this.weatherService
+      .getCities(city)
+      .pipe(
+        catchError((err) => {
+          if (err.status === 400) {
+            console.log('nome de cidade nao existe')
+            this.wrongCityName = true;
+          }
+
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (res) => {
+            let value = [...this.citiesInfo, res];
+            this.citiesInfo = value;
+        },
+        error: (err) => console.log(err)
+      });
 
     this.modal?.dismiss('confirm');
   }
@@ -57,7 +75,6 @@ export class HomePage implements OnInit {
     );
 
     this.citiesInfo = selectedCity;
-    console.log(this.citiesInfo);
 
     if (this.citiesInfo.length === 0) {
       this.hasAvailableCities = !this.hasAvailableCities;
