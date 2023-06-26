@@ -56,3 +56,7 @@ Inicie o servidor
   ng serve
 ```
 
+
+https://github.com/jgraffin/weather-api/assets/7095196/9555699c-d1a8-41b6-808f-363de1adc97f
+
+
