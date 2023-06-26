@@ -12,8 +12,6 @@ export class WeatherCardComponent  implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
-
   handleClick() {
     this.onRemoveCity.emit();
   }
