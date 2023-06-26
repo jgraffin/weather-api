@@ -2,6 +2,7 @@
 
 Desafio de app de clima disponibilizado pela GFT para teste de FrontEnd.
 
+## Estória
 0. Abre a tela de login.
 1. Logar no app utilizando as credenciais fornecidas aqui.
 2. Carregar 4 cidades por padrão ao inicializar a página.
