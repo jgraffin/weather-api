@@ -58,13 +58,6 @@ ion-footer {
   background-color: var(--ion-color-rabobank-light-grey);
 }
 
-ion-input {
-  border: 1px solid var(--ion-color-rabobank-dark-grey);
-  font-size: italic;
-  margin-bottom: 1rem;
-  padding: 16px;
-}
-
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors

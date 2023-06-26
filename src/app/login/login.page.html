@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="rabobank-blue">
+    <ion-title class="ion-text-center">Weather Api</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  [fullscreen]="true"
+  class="ion-padding"
+  color="rabobank-light-grey"
+  class="ion-padding"
+>
+  <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+    <h4>Entre com suas credenciais</h4>
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input class="ion-no-border" type="email" formControlName="email" required></ion-input>
+      <ion-text
+        class="ion-padding-top ion-padding-bottom"
+        *ngIf="(loginFormControl['email'].touched || submitted) && loginFormControl['email'].errors?.['required']"
+        color="rabobank-orange"
+      >
+        Este campo é obrigatório
+      </ion-text>
+      <ion-text
+        class="ion-padding-top ion-padding-bottom"
+        *ngIf="loginFormControl['email'].touched && loginFormControl['email'].errors?.['email']"
+        color="rabobank-orange"
+      >
+        Digite um <strong>e-mail</strong> válido.
+      </ion-text>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input
+        type="password"
+        formControlName="password"
+        required
+      ></ion-input>
+      <ion-text
+        class="ion-padding-top ion-padding-bottom"
+        *ngIf="(loginFormControl['password'].touched || submitted) && loginFormControl['password'].errors?.['required']"
+        color="rabobank-orange"
+      >
+        Este campo é obrigatório
+      </ion-text>
+    </ion-item>
+
+    <ion-button
+      color="rabobank-orange"
+      class="ion-text-capitalize ion-margin-top add-new"
+      [strong]="true"
+      expand="full"
+      type="submit"
+    >
+      Entrar
+    </ion-button>
+
+    <ion-item class="login-form-message" lines="none">
+      <ion-text
+        class="ion-padding-top ion-padding-bottom"
+        *ngIf="errorCredentials"
+        color="rabobank-orange"
+      >
+        <strong>E-mail</strong> ou <strong>Senha</strong> estão incorretos
+      </ion-text>
+    </ion-item>
+  </form>
+</ion-content>

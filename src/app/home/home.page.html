@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="rabobank-blue">
-    <ion-title class="ion-text-center">Weather Api</ion-title>
+    <ion-title slot="start" class="ion-text-center">Weather Api</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon class="ion-padding" name="log-out-outline" size="large" (click)="onLogout()"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -60,7 +63,7 @@
   </ng-template>
 </ion-modal>
 
-<ion-footer class="ion-text-center ion-padding ion-no-border">
+<ion-footer *ngIf="citiesInfo.length > 0" class="ion-text-center ion-padding ion-no-border">
   <ion-button
     color="rabobank-orange"
     class="ion-text-capitalize add-new"

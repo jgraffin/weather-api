@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { IWeather } from '../interfaces/iweather.interface';
 import { WeatherService } from '../services/weather.service';
 import { IonModal } from '@ionic/angular';
 import { catchError } from 'rxjs';
 import { EMPTY } from 'rxjs/internal/observable/empty'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,13 @@ import { EMPTY } from 'rxjs/internal/observable/empty'
 export class HomePage implements OnInit {
   @ViewChild(IonModal) modal?: IonModal;
 
-  cities: string[] = ['Curitiba', 'Sorocaba', 'Amsterdam', 'Sergipe'];
+  cities: string[] = ['Curitiba', 'Sorocaba', 'Amsterdã', 'Salvador'];
   citiesInfo: any = [];
   cityName = '';
   wrongCityName = false;
   hasAvailableCities = true;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(private weatherService: WeatherService, private router: Router) {}
 
   ngOnInit(): void {
     this.onLoadData();
@@ -41,8 +42,6 @@ export class HomePage implements OnInit {
     if (!city) {
       return;
     }
-
-    console.log('dasd aquiiii');
 
     this.weatherService
       .getCities(city)
@@ -94,5 +93,9 @@ export class HomePage implements OnInit {
   onWillDismiss() {
     this.cityName = '';
     this.onAddCity();
+  }
+
+  onLogout() {
+    this.router.navigate(['/login']);
   }
 }

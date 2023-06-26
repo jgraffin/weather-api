@@ -13,8 +13,20 @@ ion-card-header {
 
 ion-card-content {
   &.card-content {
+    width: 300px;
+    position: absolute;
+    left: 50%;
+    margin-top: 25px;
+    margin-left: -150px;
+
     h3 {
       font-size: 1.5rem
     }
   }
+}
+
+ion-input {
+  border: 1px solid var(--ion-color-rabobank-dark-grey);
+  margin-bottom: 1rem;
+  padding: 16px;
 }
