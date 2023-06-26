@@ -14,7 +14,7 @@
     <h4>Entre com suas credenciais</h4>
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input class="ion-no-border" type="email" formControlName="email" required></ion-input>
+      <ion-input class="ion-no-border" aria-label="Email" type="email" formControlName="email" required></ion-input>
       <ion-text
         class="ion-padding-top ion-padding-bottom"
         *ngIf="(loginFormControl['email'].touched || submitted) && loginFormControl['email'].errors?.['required']"
@@ -36,6 +36,7 @@
       <ion-input
         type="password"
         formControlName="password"
+        aria-label="Senha"
         required
       ></ion-input>
       <ion-text

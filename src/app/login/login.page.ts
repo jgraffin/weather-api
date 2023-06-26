@@ -30,8 +30,6 @@ export class LoginPage implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.valid) {
-      console.table(this.loginForm.value);
-
       if (
         loginMock.email === this.loginForm.value.email &&
         loginMock.password === this.loginForm.value.password
