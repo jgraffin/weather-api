@@ -1,6 +1,5 @@
 # Weather API - Feito em Ionic Framework
 
-Desafio de app de clima disponibilizado pela GFT para teste de FrontEnd.
 
 ## Estória
 0. Abre a tela de login.
